@@ -5,20 +5,41 @@ import java.util.Scanner;
 
 
 public class Game {
-    private int n;
+    private final int n;
     private final int k;
-    ArrayList<Player> players = new ArrayList<Player>(n);
+    ArrayList<Player> players = new ArrayList<>();
 
     Game(int n, int k) {
         this.n = n;
         this.k = k;
+        for (int i=0; i<n; i++) {
+            Player player = new Player(0);
+            players.add(player);
+        }
+    }
+
+    public boolean someoneWon() {
+        for(Player player : players){
+            if (player.getCount()==7) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public int whoWon() {
+        int index = -1;
+        for(int i = 0; i < n; i++){
+            if (players.get(i).getCount()==7) {
+                index = i;
+            }
+        }
+        return index;
     }
 
     public void play() {
-        Player winner = new Player();
-        int indexOfWinner = 0;
-        winner.setCount(0);
-        for (int i = 0; i < 7; i++) {
+        int i=0;
+        while (!someoneWon()) {
             System.out.println("Round " + (i + 1));
             int maxCount = 0;
             int indexOfPlayer=0;
@@ -32,16 +53,11 @@ public class Game {
                     maxCount = countForDices;
                 }
             }
-            System.out.println(indexOfPlayer);
+            ++i;
             players.get(indexOfPlayer).upCount();
-            System.out.println("Player " + (indexOfPlayer + 1) + "win the round");
+            System.out.println("Player " + (indexOfPlayer + 1) + " win the round " + i);
         }
-        for (int j = 0; j < players.size(); j++) {
-            if (winner.getCount() > players.get(j).getCount()) {
-                winner.setCount(players.get(j).getCount());
-                indexOfWinner = j;
-            }
-        }
+        int indexOfWinner = whoWon();
         if (indexOfWinner == 0) {
             System.out.println("You win the game!");
         } else if (indexOfWinner == (n - 1)) {
