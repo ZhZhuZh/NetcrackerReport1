@@ -18,7 +18,7 @@ public class Game {
         }
     }
 
-    public boolean someoneWon() {
+    public boolean someoneWon() {       // checks have we a winner or not
         for(Player player : players){
             if (player.getCount()==7) {
                 return true;
@@ -27,7 +27,7 @@ public class Game {
         return false;
     }
 
-    public int whoWon() {
+    public int whoWon() {               // return index of a winner
         int index = -1;
         for(int i = 0; i < n; i++){
             if (players.get(i).getCount()==7) {
@@ -45,7 +45,7 @@ public class Game {
             int indexOfPlayer=0;
             for (int l = 0; l < players.size(); l++) {
                 int countForDices = 0;
-                for (int f = 0; f < k-1; f++) {
+                for (int f = 0; f < k-1; f++) {                 // throwing of k dices once
                     countForDices += (int) (Math.random() * 6) + 1;
                 }
                 if (maxCount < countForDices) {
@@ -54,10 +54,10 @@ public class Game {
                 }
             }
             ++i;
-            players.get(indexOfPlayer).upCount();
+            players.get(indexOfPlayer).upCount();   // increase count of victories for player who won this round
             System.out.println("Player " + (indexOfPlayer + 1) + " win the round " + i);
         }
-        int indexOfWinner = whoWon();
+        int indexOfWinner = whoWon();       // we get index of our final winner
         if (indexOfWinner == 0) {
             System.out.println("You win the game!");
         } else if (indexOfWinner == (n - 1)) {

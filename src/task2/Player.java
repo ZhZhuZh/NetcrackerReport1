@@ -2,7 +2,7 @@ package task2;
 
 
 public class Player {
-    private int count;
+    private int count;  // count of victories for one player
     Player (int count) {
         this.count = count;
     }
